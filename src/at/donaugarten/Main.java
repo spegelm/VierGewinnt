@@ -80,13 +80,20 @@ public class Main {
     }
 
     private static boolean move (int[][] board, int inCol, int player, double radius) {
-        int rows=board[0].length, i = 0;
-        if (player==1) StdDraw.setPenColor(StdDraw.RED);
-        else StdDraw.setPenColor(StdDraw.YELLOW);
+        int rows=board[0].length, i = 0, j;
         while (i<rows) {
             if (board[inCol][i]==0) {
                 board[inCol][i] = player;
-                StdDraw.filledCircle(inCol, i, radius);
+                for (j=rows-1; j>=i; j--) {
+                    if (player == 1) StdDraw.setPenColor(StdDraw.RED);
+                    else StdDraw.setPenColor(StdDraw.YELLOW);
+                    StdDraw.filledCircle(inCol, j, radius);
+                    if (j < rows - 1) {
+                        StdDraw.setPenColor(StdDraw.BLUE);
+                        StdDraw.filledCircle(inCol, j + 1, radius);
+                    }
+                    StdDraw.pause(70);
+                }
                 return true;
             }
             i++;
